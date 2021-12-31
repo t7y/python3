@@ -1,6 +1,6 @@
 #Thread Pools
 #Reusing existing threads, because creating threads are expensive
-
+# https://www.youtube.com/watch?v=BagTTT7l1pU
 #Imports
 import logging
 import threading
@@ -9,8 +9,8 @@ import time
 import random
 
 #Test function
-def test(item):
-    s = random.randrange(1,10)
+def job(item):
+    s = random.randrange(1,5)
     logging.info(f'Thread {item}: id = {threading.get_ident()}')
     logging.info(f'Thread {item}: name = {threading.current_thread().name}')
     logging.info(f'Thread {item}: sleeping for {s}')
@@ -26,7 +26,7 @@ def main():
     items = 15
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
-        executor.map(test,range(items))
+        executor.map(job, range(items))
 
     logging.info('App Finished')
 
